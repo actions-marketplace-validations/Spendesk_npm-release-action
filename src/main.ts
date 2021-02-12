@@ -3,7 +3,10 @@ import { exec } from "@actions/exec";
 
 async function run(): Promise<void> {
   try {
-    const token: string = core.getInput('token');
+    console.log(process.env);
+    console.log(process.env);
+
+    core.info(`token: ${process.env.NPM_TOKEN}`);
 
     core.info('\nInstalling dependencies...');
     await installDependencies();
