@@ -42,13 +42,13 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const token = core.getInput('token');
-            core.info('Installing dependencies...');
+            core.info('\nInstalling dependencies...');
             yield installDependencies();
-            core.info('Building...');
+            core.info('\nBuilding...');
             yield build();
-            core.info('Publishing to npm...');
+            core.info('\nPublishing to npm...');
             yield publish();
-            core.info('All good !');
+            core.info('\nAll good !');
         }
         catch (error) {
             core.setFailed(error.message);
@@ -62,7 +62,7 @@ function build() {
 }
 function publish() {
     return __awaiter(this, void 0, void 0, function* () {
-        return exec_1.exec('yarn run publish');
+        return exec_1.exec('yarn publish');
     });
 }
 function installDependencies() {

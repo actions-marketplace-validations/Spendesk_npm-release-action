@@ -5,16 +5,16 @@ async function run(): Promise<void> {
   try {
     const token: string = core.getInput('token');
 
-    core.info('Installing dependencies...');
+    core.info('\nInstalling dependencies...');
     await installDependencies();
 
-    core.info('Building...');
+    core.info('\nBuilding...');
     await build();
 
-    core.info('Publishing to npm...');
+    core.info('\nPublishing to npm...');
     await publish();
 
-    core.info('All good !');
+    core.info('\nAll good !');
   } catch (error) {
     core.setFailed(error.message);
   }
@@ -25,7 +25,7 @@ async function build(): Promise<number> {
 }
 
 async function publish(): Promise<number> {
-  return exec('yarn run publish');
+  return exec('yarn publish');
 }
 
 async function installDependencies(): Promise<number> {

@@ -1,10 +1,6 @@
 name: 'npm-release-action'
 description: 'releases a package to the npm registry'
 author: 'Spendesk'
-inputs:
-  token:
-    description: "npm publish token"
-    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'

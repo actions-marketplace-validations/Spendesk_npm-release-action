@@ -1,8 +1,7 @@
 {
-  "name": "npm-release-action",
+  "name": "@dev-spendesk/npm-release-action",
   "version": "0.1.0",
-  "private": true,
-  "description": "TypeScript template action",
+  "description": "releases a package to the npm registry",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
