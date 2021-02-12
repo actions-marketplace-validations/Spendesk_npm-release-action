@@ -1,19 +1,35 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import { exec } from "@actions/exec";
 
 async function run(): Promise<void> {
   try {
-    const token: string = core.getInput('token')
-    core.debug(`Waiting ${token} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
+    const token: string = core.getInput('token');
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(token, 10))
-    core.debug(new Date().toTimeString())
+    core.info('Installing dependencies...');
+    await installDependencies();
 
-    core.setOutput('time', new Date().toTimeString())
+    core.info('Building...');
+    await build();
+
+    core.info('Publishing to npm...');
+    await publish();
+
+    core.info('All good !');
   } catch (error) {
-    core.setFailed(error.message)
+    core.setFailed(error.message);
   }
 }
 
-run()
+async function build(): Promise<number> {
+  return exec('yarn run build');
+}
+
+async function publish(): Promise<number> {
+  return exec('yarn run publish');
+}
+
+async function installDependencies(): Promise<number> {
+  return exec('yarn install --frozen-lockfile');
+}
+
+run();
