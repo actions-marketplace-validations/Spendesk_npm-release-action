@@ -1,11 +1,10 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'npm-release-action'
+description: 'releases a package to the npm registry'
+author: 'Spendesk'
 inputs:
-  milliseconds: # change this
+  token:
+    description: "npm publish token"
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
 runs:
   using: 'node12'
   main: 'dist/index.js'

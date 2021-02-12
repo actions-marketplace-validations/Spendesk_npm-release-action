@@ -41,10 +41,10 @@ const wait_1 = __webpack_require__(817);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const ms = core.getInput('milliseconds');
-            core.debug(`Waiting ${ms} milliseconds ...`); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
+            const token = core.getInput('token');
+            core.debug(`Waiting ${token} milliseconds ...`); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
             core.debug(new Date().toTimeString());
-            yield wait_1.wait(parseInt(ms, 10));
+            yield wait_1.wait(parseInt(token, 10));
             core.debug(new Date().toTimeString());
             core.setOutput('time', new Date().toTimeString());
         }
