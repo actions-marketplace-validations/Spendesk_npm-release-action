@@ -6,7 +6,7 @@ on: # rebuild any PRs and main branch changes
       - main
       - 'releases/*'
 env:
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
 jobs:
   build: # make sure build/ci work properly
