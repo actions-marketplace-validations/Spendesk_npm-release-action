@@ -14,3 +14,5 @@ jobs:
         
       - name: release action
         uses: ./
+        with:
+          use-semantic-release: "false"

@@ -1,6 +1,10 @@
 name: 'npm-release-action'
 description: 'releases a package to the npm registry'
 author: 'Spendesk'
+inputs:
+  use-semantic-release:
+    description: 'Uses semantic-release to automate the release process (package version number / release note)'
+    default: 'true'
 runs:
   using: "composite"
   steps:
@@ -44,5 +48,12 @@ runs:
         env:
           GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ env.NPM_TOKEN }}
-        run: npx -p semantic-release -p conventional-changelog-conventionalcommits -c semantic-release
+        run: |
+          if ${{ inputs.use-semantic-release }} = 'true'
+          then
+            echo "Using semantic release" &
+            npx -p semantic-release -p conventional-changelog-conventionalcommits -c semantic-release
+          else
+            yarn publish
+          fi
         shell: bash
