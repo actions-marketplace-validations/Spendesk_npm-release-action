@@ -1,6 +1,6 @@
 {
   "name": "@dev-spendesk/npm-release-action",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Releases a package to the npm registry",
   "main": "lib/main.js",
   "scripts": {

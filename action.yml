@@ -5,6 +5,9 @@ inputs:
   use-semantic-release:
     description: 'Uses semantic-release to automate the release process (package version number / release note)'
     default: 'true'
+  skip-checks:
+    description: 'If "true", skips the lint and test steps. Useful if it has already been done in a previous job'
+    default: 'false'
 runs:
   using: "composite"
   steps:
@@ -37,6 +40,16 @@ runs:
             echo "Cache hit - skipping dependency installation"
           else
             yarn install --frozen-lockfile
+          fi
+        shell: 'bash'
+
+      - name: lint and test
+        run: |
+          if ${{ inputs.skip-checks }} = 'false'
+          then
+            yarn run lint & yarn run test
+          else
+            echo "Skipping lint and test steps"
           fi
         shell: 'bash'
 

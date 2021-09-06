@@ -22,7 +22,8 @@ Specifically, it will:
 - `NODE_VERSION`: node version to install
 ### Inputs
 
-- `use-semantic-release`: default to 'true'. If 'true', will use [`semantic-release`](https://github.com/semantic-release/semantic-release) to manage the release.
+- `use-semantic-release`: defaults to `'true'`. If `'true'`, will use [`semantic-release`](https://github.com/semantic-release/semantic-release) to manage the release.
 Otherwise, it performs a plain `yarn publish`
+- `skip-checks`: defaults to `'false'`. If truthy, skips the `lint and test` step
 
 
