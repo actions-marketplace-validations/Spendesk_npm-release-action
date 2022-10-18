@@ -9,64 +9,64 @@ inputs:
     description: 'If "true", skips the lint and test steps. Useful if it has already been done in a previous job'
     default: 'false'
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Setup Nodejs
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
+    - name: Setup Nodejs
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ env.NODE_VERSION }}
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-        shell: 'bash'
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+      shell: 'bash'
 
-      - uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
-            node_modules
-          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-
+    - uses: actions/cache@v2
+      id: yarn-cache
+      with:
+        path: |
+          ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          node_modules
+        key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-
 
-      - name: Install dependencies
-        run: |
-          if ${{ steps.yarn-cache.outputs.cache-hit }} = 'true'
-          then
-            echo "Cache hit - skipping dependency installation"
-          else
-            yarn install --frozen-lockfile
-          fi
-        shell: 'bash'
+    - name: Install dependencies
+      run: |
+        if ${{ steps.yarn-cache.outputs.cache-hit }} = 'true'
+        then
+          echo "Cache hit - skipping dependency installation"
+        else
+          yarn install --frozen-lockfile
+        fi
+      shell: 'bash'
 
-      - name: lint and test
-        run: |
-          if ${{ inputs.skip-checks }} = 'false'
-          then
-            yarn run lint & yarn run test
-          else
-            echo "Skipping lint and test steps"
-          fi
-        shell: 'bash'
+    - name: lint and test
+      run: |
+        if ${{ inputs.skip-checks }} = 'false'
+        then
+          yarn run lint & yarn run test
+        else
+          echo "Skipping lint and test steps"
+        fi
+      shell: 'bash'
 
-      - name: Build
-        run: yarn run build
-        shell: 'bash'
+    - name: Build
+      run: yarn run build
+      shell: 'bash'
 
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ env.NPM_TOKEN }}
-        run: |
-          if ${{ inputs.use-semantic-release }} = 'true'
-          then
-            echo "Using semantic release" &
-            npx -p semantic-release -p conventional-changelog-conventionalcommits -c semantic-release
-          else
-            yarn publish
-          fi
-        shell: bash
+    - name: Release
+      env:
+        GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+        NPM_TOKEN: ${{ env.NPM_TOKEN }}
+      run: |
+        if ${{ inputs.use-semantic-release }} = 'true'
+        then
+          echo "Using semantic release" &
+          npx -p semantic-release -p conventional-changelog-conventionalcommits -c semantic-release
+        else
+          yarn publish
+        fi
+      shell: bash

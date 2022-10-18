@@ -4,13 +4,8 @@
   "description": "Releases a package to the npm registry",
   "main": "lib/main.js",
   "scripts": {
-    "build": "tsc",
-    "format": "prettier --write **/*.ts",
-    "format-check": "prettier --check **/*.ts",
-    "lint": "eslint src/**/*.ts",
-    "package": "ncc build --source-map --license licenses.txt",
-    "test": "jest --passWithNoTests",
-    "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
+    "format": "prettier --write **/*.{ts,yml}",
+    "format-check": "prettier --check **/*.{ts,yml}"
   },
   "repository": {
     "type": "git",
@@ -18,31 +13,18 @@
   },
   "keywords": [
     "actions",
+    "composite",
     "node",
     "setup"
   ],
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "@actions/core": "^1.5.0",
-    "@actions/exec": "^1.1.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@types/jest": "27.0.1",
-    "@types/node": "16.7.10",
-    "@typescript-eslint/parser": "4.30.0",
-    "@vercel/ncc": "0.30.0",
-    "eslint": "7.32.0",
-    "eslint-plugin-github": "4.2.0",
-    "eslint-plugin-jest": "24.4.0",
-    "jest": "27.1.0",
-    "jest-circus": "27.1.0",
-    "prettier": "2.3.2",
-    "ts-jest": "27.0.5",
-    "typescript": "4.4.2"
+    "prettier": "2.3.2"
   },
   "volta": {
-    "node": "14.17.6",
+    "node": "16.18.0",
     "yarn": "1.22.11"
   }
 }

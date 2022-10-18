@@ -1,18 +1,19 @@
 name: 'release'
-on: [push]
+on:
+  push:
+    branches:
+      - main
+
 env:
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN_RW }}
   GITHUB_TOKEN: ${{ secrets.SPENDESK_BOT_SEMANTIC_RELEASE_ACCESS_TOKEN }}
-  NODE_VERSION: 14.16.0
+  NODE_VERSION: 16.18.0
 
 jobs:
-  build-release: 
+  build-release:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repository
-        uses: actions/checkout@v2
-        
+        uses: actions/checkout@v3
+
       - name: release action
-        uses: ./
-        with:
-          use-semantic-release: "false"
+        run: npx semantic-release
