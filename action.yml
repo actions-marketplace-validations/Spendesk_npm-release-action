@@ -12,19 +12,19 @@ runs:
   using: 'composite'
   steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Setup Nodejs
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ env.NODE_VERSION }}
 
     - name: Get yarn cache directory path
       id: yarn-cache-dir-path
-      run: echo "::set-output name=dir::$(yarn cache dir)"
+      run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
       shell: 'bash'
 
-    - uses: actions/cache@v2
+    - uses: actions/cache@v3
       id: yarn-cache
       with:
         path: |
